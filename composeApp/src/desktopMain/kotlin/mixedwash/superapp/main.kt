@@ -16,7 +16,7 @@ fun main() = application {
         OrdersDashboardScreen(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xff2A2A2A))
+                .background(Color(0xff1E1E1E))
         )
     }
 }

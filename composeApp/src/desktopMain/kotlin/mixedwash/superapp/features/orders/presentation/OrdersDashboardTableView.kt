@@ -4,10 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -24,7 +26,9 @@ fun OrdersDashboardTableView(
     ) {
         items(count = columnValues.size){ index ->
             Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
+                    .height(40.dp)
                     .background(
                         if (index % 2 == 0)
                             Color(0xff252525)
@@ -37,7 +41,7 @@ fun OrdersDashboardTableView(
                         label = value,
                         isTitle = yIndex == 0,
                         modifier = Modifier
-                            .width(150.dp)
+                            .width(400.dp)
                     )
                 }
             }
