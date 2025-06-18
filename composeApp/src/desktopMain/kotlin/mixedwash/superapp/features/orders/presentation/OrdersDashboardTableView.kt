@@ -2,6 +2,8 @@ package mixedwash.superapp.features.orders.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,30 +21,54 @@ fun OrdersDashboardTableView(
     columnValues: List<List<String>>,
     modifier: Modifier = Modifier,
 ){
-    var scrollable = rememberScrollState()
-    LazyColumn(
-        modifier = modifier
-            .horizontalScroll(scrollable)
-    ) {
-        items(count = columnValues.size){ index ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-                    .height(40.dp)
-                    .background(
-                        if (index % 2 == 0)
-                            Color(0xff252525)
-                        else
-                            Color(0xff2A2A2A)
-                    )
-            ) {
-                columnValues[index].forEachIndexed { yIndex, value ->
-                    OrdersDashboardColumnItemView(
-                        label = value,
-                        isTitle = yIndex == 0,
-                        modifier = Modifier
-                            .width(400.dp)
-                    )
+    val scrollState = rememberScrollState()
+
+    if (columnValues.isEmpty()) return
+
+    Column(modifier = modifier) {
+        // Sticky header row
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp)
+                .background(Color(0xff252525))
+                .horizontalScroll(scrollState)
+        ) {
+            columnValues[0].forEachIndexed { yIndex, value ->
+                OrdersDashboardColumnItemView(
+                    label = value,
+                    isTitle = true, // All header cells should be bold
+                    modifier = Modifier.width(400.dp)
+                )
+            }
+        }
+
+        // Scrollable content (data rows)
+        LazyColumn(
+            modifier = Modifier.horizontalScroll(scrollState)
+        ) {
+            items(count = columnValues.size - 1) { index ->
+                val actualIndex = index + 1 // Skip header row
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(40.dp)
+                        .background(
+                            if (actualIndex % 2 == 0)
+                                Color(0xff252525)
+                            else
+                                Color(0xff2A2A2A)
+                        )
+                ) {
+                    columnValues[actualIndex].forEachIndexed { yIndex, value ->
+                        OrdersDashboardColumnItemView(
+                            label = value,
+                            isTitle = false, // All data cells should be normal weight
+                            modifier = Modifier.width(400.dp)
+                        )
+                    }
                 }
             }
         }

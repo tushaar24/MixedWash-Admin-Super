@@ -19,5 +19,9 @@ data class OrderDashboardTableItemEntity(
     @SerialName("service")
     val service: String,
     @SerialName("user_name")
-    val userName: String
+    val userName: String,
+    @SerialName("phone_number")
+    val userPhone: String,
+    @SerialName("email_address")
+    val emailAddress: String
 )
