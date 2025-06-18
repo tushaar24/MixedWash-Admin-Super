@@ -1,6 +1,7 @@
 package mixedwash.superapp.features.orders.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,14 +17,16 @@ fun OrdersDashboardColumnItemView(
     isTitle: Boolean = false,
     modifier: Modifier = Modifier
 ){
-    Text(
-        text = label,
-        fontSize = 14.sp,
-        fontWeight = if(isTitle) FontWeight.Bold else FontWeight.Normal,
-        textAlign = TextAlign.Center,
-        color = Color(0xffE0E0E0),
-        modifier = modifier,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 1
-    )
+    SelectionContainer {
+        Text(
+            text = label,
+            fontSize = 14.sp,
+            fontWeight = if (isTitle) FontWeight.Bold else FontWeight.Normal,
+            textAlign = TextAlign.Center,
+            color = Color(0xffE0E0E0),
+            modifier = modifier,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
+        )
+    }
 }
